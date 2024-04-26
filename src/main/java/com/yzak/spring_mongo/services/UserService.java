@@ -1,6 +1,7 @@
 package com.yzak.spring_mongo.services;
 
 import com.yzak.spring_mongo.domain.User;
+import com.yzak.spring_mongo.dto.UserDTO;
 import com.yzak.spring_mongo.repositories.UserRepository;
 import com.yzak.spring_mongo.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,5 +23,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repository.findById(id);
         return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+    }
+
+    public User insert(User obj) {
+        return repository.insert(obj);
+    }
+
+    public User fromDTO(UserDTO obj) {
+        return new User(obj.getId(), obj.getName(), obj.getEmail());
     }
 }

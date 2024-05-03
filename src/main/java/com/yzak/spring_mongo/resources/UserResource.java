@@ -1,5 +1,6 @@
 package com.yzak.spring_mongo.resources;
 
+import com.yzak.spring_mongo.domain.Post;
 import com.yzak.spring_mongo.domain.User;
 import com.yzak.spring_mongo.dto.UserDTO;
 import com.yzak.spring_mongo.services.UserService;
@@ -11,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping(value = "/users")
@@ -30,6 +32,12 @@ public class UserResource {
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         UserDTO obj = new UserDTO(service.findById(id));
         return ResponseEntity.ok().body(obj);
+    }
+
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id) {
+        User obj = service.findById(id);
+        return ResponseEntity.ok().body(obj.getPosts());
     }
 
     @PostMapping

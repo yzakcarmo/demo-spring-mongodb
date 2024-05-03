@@ -2,6 +2,7 @@ package com.yzak.spring_mongo.config;
 
 import com.yzak.spring_mongo.domain.Post;
 import com.yzak.spring_mongo.domain.User;
+import com.yzak.spring_mongo.dto.AuthorDTO;
 import com.yzak.spring_mongo.repositories.PostRepository;
 import com.yzak.spring_mongo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,8 +33,8 @@ public class Instantiation implements CommandLineRunner {
         User bob = new User(null, "Bob Grey", "bob@gmail.com");
         userRepository.saveAll(Arrays.asList(maria, alex, bob));
 
-        Post post1 = new Post(null, alex, LocalDate.parse("2024-04-27"),"Bora pra praia", "Rapaziada, vou viajar pro Caribe.");
-        Post post2 = new Post(null, alex, LocalDate.parse("2024-04-27"),"Deu ruim", "Rolou bug de madrugada, me botaram em plantão");
+        Post post1 = new Post(null, new AuthorDTO(alex), LocalDate.parse("2024-04-27"),"Bora pra praia", "Rapaziada, vou viajar pro Caribe.");
+        Post post2 = new Post(null, new AuthorDTO(alex), LocalDate.parse("2024-04-27"),"Deu ruim", "Rolou bug de madrugada, me botaram em plantão");
         postRepository.saveAll(Arrays.asList(post1, post2));
 
     }

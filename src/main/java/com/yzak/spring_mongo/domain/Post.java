@@ -1,5 +1,6 @@
 package com.yzak.spring_mongo.domain;
 
+import com.yzak.spring_mongo.dto.AuthorDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
@@ -17,11 +18,11 @@ public class Post implements Serializable {
     private String title;
     private String body;
 
-    private User author;
+    private AuthorDTO author;
 
     public Post(){}
 
-    public Post(String id, User author, LocalDate date, String title, String body) {
+    public Post(String id, AuthorDTO author, LocalDate date, String title, String body) {
         this.id = id;
         this.author = author;
         this.date = date;
@@ -37,11 +38,11 @@ public class Post implements Serializable {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public AuthorDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(AuthorDTO author) {
         this.author = author;
     }
 

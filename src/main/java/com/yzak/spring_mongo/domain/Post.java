@@ -1,12 +1,14 @@
 package com.yzak.spring_mongo.domain;
 
 import com.yzak.spring_mongo.dto.AuthorDTO;
+import com.yzak.spring_mongo.dto.CommentDTO;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-import java.time.LocalDate;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Document(collection = "post")
@@ -14,15 +16,17 @@ public class Post implements Serializable {
 
     @Id
     private String id;
-    private LocalDate date;
+    private LocalDateTime date;
     private String title;
     private String body;
 
     private AuthorDTO author;
 
+    private List<CommentDTO> comments = new ArrayList<>();
+
     public Post(){}
 
-    public Post(String id, AuthorDTO author, LocalDate date, String title, String body) {
+    public Post(String id, AuthorDTO author, LocalDateTime date, String title, String body) {
         this.id = id;
         this.author = author;
         this.date = date;
@@ -46,11 +50,11 @@ public class Post implements Serializable {
         this.author = author;
     }
 
-    public LocalDate getDate() {
+    public LocalDateTime getDate() {
         return date;
     }
 
-    public void setDate(LocalDate date) {
+    public void setDate(LocalDateTime date) {
         this.date = date;
     }
 
@@ -68,6 +72,10 @@ public class Post implements Serializable {
 
     public void setBody(String body) {
         this.body = body;
+    }
+
+    public List<CommentDTO> getComments() {
+        return comments;
     }
 
     @Override

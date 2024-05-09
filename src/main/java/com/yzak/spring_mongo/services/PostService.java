@@ -45,4 +45,8 @@ public class PostService {
         newObj.setBody(obj.getBody());
         newObj.setId(obj.getId());
     }
+
+    public List<Post> findByTitle(String text) {
+        return repository.findByTitleContainingIgnoreCase(text);
+    }
 }

@@ -5,12 +5,11 @@ import com.yzak.spring_mongo.resources.util.URL;
 import com.yzak.spring_mongo.services.PostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.ValidationUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.net.URLDecoder;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @RestController
@@ -58,6 +57,19 @@ public class PostResource {
     public ResponseEntity<List<Post>> findByTitle(@RequestParam(value = "text", defaultValue = "") String text){
         text = URL.decodeParam(text);
         List<Post> list = service.findByTitle(text);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/fullsearch")
+    public ResponseEntity<List<Post>> fullSearch(
+            @RequestParam(value = "text", defaultValue = "") String text,
+            @RequestParam(value = "minDate", defaultValue = "") String minDate,
+            @RequestParam(value = "maxDate", defaultValue = "") String maxDate
+            ){
+        text = URL.decodeParam(text);
+        LocalDateTime min = URL.convertDateTime(minDate, LocalDateTime.parse("1990-01-01T00:00"));
+        LocalDateTime max = URL.convertDateTime(maxDate, LocalDateTime.now());
+        List<Post> list = service.fullSearch(text, min, max);
         return ResponseEntity.ok().body(list);
     }
 

@@ -6,6 +6,7 @@ import com.yzak.spring_mongo.services.exceptions.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -52,5 +53,9 @@ public class PostService {
 
         //Usando @Query
         return repository.findByTitle(text);
+    }
+
+    public List<Post> fullSearch(String text, LocalDateTime minDate, LocalDateTime maxDate) {
+        return repository.fullsearch(text, minDate, maxDate);
     }
 }
